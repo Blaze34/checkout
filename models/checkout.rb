@@ -17,8 +17,8 @@ class Checkout
     prices = collect_prices
 
     @rules.each do |rule|
-      if prices.has_key? rule.product_id
-        prices[rule.product_id] = rule.apply prices[rule.product_id]
+      if prices.has_key? rule.product.id
+        prices[rule.product.id] = rule.apply prices[rule.product.id]
       end
     end
 

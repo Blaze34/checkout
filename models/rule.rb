@@ -1,9 +1,10 @@
 class Rule
 
-  attr_reader :product_id, :type, :params
+  attr_accessor :product
+  attr_reader :type, :params
 
   def initialize(product, type, *params)
-    @product_id = product.id
+    @product = product
     @type = type
     @params = params
   end

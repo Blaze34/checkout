@@ -1,21 +1,31 @@
+require 'factory_girl'
 require_relative 'models/product'
 require_relative 'models/rule'
 require_relative 'models/checkout'
+require_relative 'factories/products'
+require_relative 'factories/rules'
 
 
-fr = Product.new('Fruit Tea', 3.11)
-sr = Product.new('Strawberries', 5.00)
-cf = Product.new('Coffee', 11.23)
+cf = FactoryGirl.build :product3
 
-rule1 = Rule.new(fr, :every, 2, 0)
-rule2 = Rule.new(sr, :after_count, 3, 4.5)
+rule1 = FactoryGirl.build(:rule1)
+rule2 = FactoryGirl.build(:rule2)
+
+
+
 
 co = Checkout.new rule1, rule2
 
-co.add sr
-co.add sr
-co.add sr
-co.add fr
-co.add fr
+co.add rule2.product
+co.add rule2.product
+co.add rule2.product
+co.add rule1.product
+co.add rule1.product
 
 p co.total
+
+p rule1
+
+#p fr
+#p sr
+#p cf
