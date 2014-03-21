@@ -8,9 +8,17 @@ class Checkout
   end
 
   def add(product)
-    @items[product.id] ||= { model: product, count: 0 }
+    items[product.id] ||= { model: product, count: 0 }
 
-    @items[product.id][:count] += 1
+    items[product.id][:count] += 1
+  end
+
+  def quantity(product = nil)
+    if product
+      (items.has_key? product.id) ? items[product.id][:count] : 0
+    else
+      items.map { |k,v| v[:count] } .inject(0, :+)
+    end
   end
 
   def total
@@ -28,6 +36,6 @@ class Checkout
   private
 
   def collect_prices
-    Hash[@items.map { |k,v| [k, Array.new(v[:count], v[:model].price)] }]
+    Hash[items.map { |k,v| [k, Array.new(v[:count], v[:model].price)] }]
   end
 end
