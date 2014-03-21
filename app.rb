@@ -1,6 +1,6 @@
-require_relative 'product'
-require_relative 'rule'
-require_relative 'checkout'
+require_relative 'models/product'
+require_relative 'models/rule'
+require_relative 'models/checkout'
 
 
 fr = Product.new('Fruit Tea', 3.11)
