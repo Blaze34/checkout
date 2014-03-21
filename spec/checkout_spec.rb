@@ -13,55 +13,52 @@ describe Checkout do
 
   context 'product collection FR, SR, FR, FR, CF' do
 
-    subject do
+    before do
       checkout.add rule1.product
       checkout.add rule2.product
       checkout.add rule1.product
       checkout.add rule1.product
       checkout.add product3
-      checkout
     end
 
-    it { expect(subject.items).to have(3).items }
-    it { expect(subject.quantity).to eq(5) }
-    it { expect(subject.quantity rule1.product).to eq(3) }
-    it { expect(subject.quantity rule2.product).to eq(1) }
-    it { expect(subject.quantity product3).to eq(1) }
+    it { expect(checkout.items).to have(3).items }
+    it { expect(checkout.quantity).to eq(5) }
+    it { expect(checkout.quantity rule1.product).to eq(3) }
+    it { expect(checkout.quantity rule2.product).to eq(1) }
+    it { expect(checkout.quantity product3).to eq(1) }
 
     context '.collect_prices' do
-      it { expect(subject.send(:collect_prices).values).to eq([[3.11,3.11,3.11],[5],[11.23]]) }
+      it { expect(checkout.send(:collect_prices).values).to eq([[3.11,3.11,3.11],[5],[11.23]]) }
     end
 
     context '.total' do
-      it { expect(subject.total).to eq(22.45) }
+      it { expect(checkout.total).to eq(22.45) }
     end
   end
 
   context 'product collection FR, FR' do
 
-    subject do
-      checkout.add rule1.product
-      checkout.add rule1.product
-      checkout
-    end
-
     context '.total' do
-      it { expect(subject.total).to eq(3.11) }
+      it do
+        checkout.add rule1.product
+        checkout.add rule1.product
+
+        expect(checkout.total).to eq(3.11)
+      end
     end
   end
 
   context 'product collection SR, SR, FR, SR' do
 
-    subject do
-      checkout.add rule2.product
-      checkout.add rule2.product
-      checkout.add rule1.product
-      checkout.add rule2.product
-      checkout
-    end
-
     context '.total' do
-      it { expect(subject.total).to eq(16.61) }
+      it do
+        checkout.add rule2.product
+        checkout.add rule2.product
+        checkout.add rule1.product
+        checkout.add rule2.product
+
+        expect(checkout.total).to eq(16.61)
+      end
     end
   end
 
