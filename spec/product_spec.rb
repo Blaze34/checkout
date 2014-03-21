@@ -4,11 +4,7 @@ describe Product do
   subject { build (:product1)}
 
   describe 'fields' do
-    it do
-      expect(subject.id).to be_a Integer
-    end
-    it do
-      expect(subject.price).to be >= 0
-    end
+    it { expect(subject.id).to be_a Integer }
+    it { expect(subject.price).to be >= 0 }
   end
 end
