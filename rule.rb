@@ -9,8 +9,8 @@ class Rule
   end
 
   def apply(prices)
-    if respond_to? @type, true
-      self.send(@type, prices)
+    if respond_to? type, true
+      send(type, prices)
     else
       prices
     end
