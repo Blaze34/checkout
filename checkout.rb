@@ -3,18 +3,14 @@ class Checkout
   attr_reader :items
 
   def initialize(*rules)
-    @items = []
+    @items = {}
     @rules = rules
   end
 
-  #def add(product)
-  #  @items[product.id] ||= { model: product, count: 0 }
-  #
-  #  @items[product.id][:count] += 1
-  #end
-
   def add(product)
-    @items << product
+    @items[product.id] ||= { model: product, count: 0 }
+
+    @items[product.id][:count] += 1
   end
 
   def total
@@ -32,13 +28,6 @@ class Checkout
   private
 
   def collect_prices
-    prices = {}
-
-    @items.each do |i|
-      prices[i.id] ||= []
-      prices[i.id] << i.price
-    end
-
-    prices
+    Hash[@items.map { |k,v| [k, Array.new(v[:count], v[:model].price)] }]
   end
 end
